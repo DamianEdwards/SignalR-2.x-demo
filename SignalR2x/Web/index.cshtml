@@ -9,26 +9,26 @@
     <p><a href="https://github.com/DamianEdwards/SignalR-2.x-demo" class="btn btn-primary btn-large">Get the code &raquo;</a></p>
 </div>
 
-<h3>Features in 2.0</h3>
+<h2>Features in 2.0</h2>
 <div class="row">
     <div class="col-md-4">
-        <h2>.NET 4.5 Requirement</h2>
+        <h3>.NET 4.5 Requirement</h3>
         <p>SignalR 2.0.0 removed support for .NET 4.0 on the server. The minimum required .NET version is now .NET 4.5.</p>
     </div>
     <div class="col-md-4">
-        <h2>&gt;50 Bug Fixes</h2>
+        <h3>&gt;50 Bug Fixes</h3>
         <p>SignalR 2.0.0 fixed more than 50 bugs in the server and client libraries, improving stability, performance, and improving usability.</p>
         <p><a class="btn btn-default" href="https://github.com/signalr/signalr/releases/">See the full release notes &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>OWIN Startup</h2>
+        <h3>OWIN Startup</h3>
         <p>SignalR 2.0.0 removed all ties to System.Web and took a direct dependency on <a href="http://owin.org">OWIN</a>. This changed how applications setup SignalR during app start.</p>
         <p><a class="btn btn-default" href="http://www.asp.net/signalr/overview/signalr-20/getting-started-with-signalr-20/upgrading-signalr-1x-projects-to-20">Learn more about upgrading &raquo;</a></p>
     </div>
 </div>
 <div class="row">
     <div class="col-md-4">
-        <h2>Hub Exceptions</h2>
+        <h3>Hub Exceptions</h3>
         <p>
             The new exception type <code>HubException</code> can be thrown inside your hub method to
             provide meaningful error details to your clients, including extra custom data.
@@ -36,7 +36,7 @@
         <p><a class="btn btn-default" href="HubExceptions/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>CORS Support</h2>
+        <h3>CORS Support</h3>
         <p>
             In SignalR 1.x cross domain requests were controlled by a single <code>EnableCrossDomain</code> flag.
             This flag controlled both JSONP and CORS requests. For greater fleixibility, SignalR 2.x removes all
@@ -45,7 +45,7 @@
         <p><a class="btn btn-default" href="CORS/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Old Client Support</h2>
+        <h3>Old Client Support</h3>
         <p>
             SignalR 2.x servers can continue to work with clients using SignalR 1.x client libraries. This means
             you can continue to support client applications that haven't yet been updated to the new client
@@ -56,7 +56,7 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <h2>JavaScript Send Objects</h2>
+        <h3>JavaScript Send Objects</h3>
         <p>
             The JavaScript client now allows you to send objects directly over connections. They will be implicitly
             serialized to JSON on your behalf.
@@ -64,7 +64,7 @@
         <p><a class="btn btn-default" href="JavaScriptSendObjects/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>JavaScript Error Handling</h2>
+        <h3>JavaScript Error Handling</h3>
         <p>
             All JavaScript error handling callbacks now flow JavaScript error objects instead of raw strings.
             This allows us to flow richer information to your error handlers. You can get the inner exception
@@ -73,7 +73,7 @@
         <p><a class="btn btn-default" href="JavaScriptErrorHandling/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>JavaScript Custom JSON Parsing</h2>
+        <h3>JavaScript Custom JSON Parsing</h3>
         <p>
             The JavaScript client now supports configuring a custom JSON object for parsing and stringifying
             all objects send over the connection. Be default the connection uses <code>window.JSON</code>.
@@ -83,7 +83,7 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <h2>Send to User</h2>
+        <h3>Send to User</h3>
         <p>
             Messages can now be sent to a specific user by using their username. This removes the need to
             track connection-to-user mapping manually for the purposes of sending messages. The method for
@@ -92,7 +92,7 @@
         <p><a class="btn btn-default" href="SendToUser/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Send Pre-encoded JSON</h2>
+        <h3>Send Pre-encoded JSON</h3>
         <p>
             Messages of pre-encoded JSON can now be sent directly over connections. SignalR will not try
             to re-encode raw JSON byte messages. This is useful in scenarios where you already have JSON
@@ -101,7 +101,7 @@
         <p><a class="btn btn-default" href="SendPreEncodedJson/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Self Host</h2>
+        <h3>Self Host</h3>
         <p>
             Self-hosting SignalR is now fully supported with 2.x. Applications can use the Microsoft.AspNet.SignalR.SelfHost
             package to bring everything they need in to a console application to self-host they're SignalR functionality
@@ -112,15 +112,24 @@
 </div>
 
 <hr />
-<h3>Features Coming in 2.1.0</h3>
+<h2>Features Coming in 2.1.0</h2>
 <div class="row">
     <div class="col-md-4">
-        <h2>Strongly Typed Hubs</h2>
+        <h3>Strongly Typed Hubs</h3>
         <p>
             Hubs can specify a strongly typed contract to represent the client methods that can be
             invoked from the hub on the server-side. Client method invocations can then be made
             without the use of dynamic or strings for method names.
         </p>
         <p><a class="btn btn-default" href="StronglyTypedHubs/">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>Hub Progress</h3>
+        <p>
+            Long-running async hub methods can report their progress via accepting an <code>IProgress&lt;T&gt;</code>
+            as their last parameter and calling the <code>Report</code> method on it. The calling client will be
+            notified of the progress until the original hub method invocation is complete.
+        </p>
+        <p><a class="btn btn-default" href="HubProgress/">Learn more &raquo;</a></p>
     </div>
 </div>

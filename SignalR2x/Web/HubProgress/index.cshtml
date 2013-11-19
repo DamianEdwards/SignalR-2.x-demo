@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Hub Progress";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    Long-running async hub methods can report their progress via accepting an <code>IProgress&lt;T&gt;</code>
+    as their last parameter and calling the <code>Report</code> method on it. The calling client will be
+    notified of the progress until the original hub method invocation is complete.
+</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info" disabled="disabled">Start Long Running Job</button>
+        <span class="text-success"></span>
+        <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar">
+                <span class="sr-only">0% Complete</span>
+            </div>
+        </div>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script src="~/signalr/js"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.progressHub,
+                $progressBar = $("#actions .progress-bar");
+            
+            $.connection.hub.start().done(function () {
+                $("#actions button")
+                    .click(function () {
+                        hub.server.doLongRunningThing()
+                            .progress(function (percent) {
+                                $progressBar.width(percent + "%");
+                                $progressBar.find(".sr-only").text(percent + "% Complete");
+                            })
+                            .done(function (result) {
+                                setTimeout(function () {
+                                    $progressBar
+                                        .removeClass("progress-bar-info")
+                                        .addClass("progress-bar-success");
+                                    $("#actions .text-success").text(result);
+                                }, 500);
+                            });
+                    })
+                    .prop("disabled", false);
+            });
+                
+        });
+    </script>
+}

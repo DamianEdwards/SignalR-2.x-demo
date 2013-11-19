@@ -143,6 +143,7 @@
     <Content Include="JavaScriptErrorHandling\index.cshtml" />
     <Content Include="JavaScriptCustomJsonParsing\index.cshtml" />
     <Content Include="BackCompatClients\index.cshtml" />
+    <Content Include="HubProgress\index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -166,6 +167,7 @@
     <Compile Include="BackCompatClients\ShinyNewHub.cs" />
     <Compile Include="CORS\Startup.cs" />
     <Compile Include="HubExceptions\HubExceptions.cs" />
+    <Compile Include="HubProgress\ProgressHub.cs" />
     <Compile Include="JavaScriptCustomJsonParsing\Connection.cs" />
     <Compile Include="JavaScriptErrorHandling\Connection.cs" />
     <Compile Include="JavaScriptSendObjects\Connection.cs" />
