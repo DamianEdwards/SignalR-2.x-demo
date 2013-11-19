@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Client Callback Cleanup";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    Hub method client callbacks are now cleaned up appropriately on failure and when the connection ends.
+</p>
+
+<p class="text-info">Use the IE11 memory profiler to see the memory growth and reclamation.</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info">Make Calls</button>
+        <span class="text-info">In-progress calls: <strong>0</strong></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script src="~/signalr/js"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.neverEndingHub,
+                $btn = $("#actions button"),
+                $calls = $("#actions .text-info strong");
+
+            $.connection.hub.disconnected(function () {
+                $btn.text("Start Connection");
+            });
+
+            $btn.click(function () {
+                if ($.connection.hub.state === $.signalR.connectionState.disconnected) {
+                    $.connection.hub.start()
+                        .done(function () {
+                            var pendingCalls = 0;
+
+                            $btn.text("Stop Connection");
+                            
+                            for (var i = 0; i < 1000; i++) {
+                                pendingCalls++;
+                                $calls.text(pendingCalls);
+                                hub.server.neverEnds()
+                                    .done(function () {
+                                        pendingCalls--;
+                                        $calls.text(pendingCalls);
+                                    })
+                                    .fail(function () {
+                                        pendingCalls--;
+                                        $calls.text(pendingCalls);
+                                    });
+                            }
+                        })
+                        .fail(function (error) {
+                            logError(error);
+                        });
+                } else {
+                    $.connection.hub.stop();
+                }
+            });
+        });
+    </script>
+}

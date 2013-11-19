@@ -27,6 +27,10 @@ Demos for SignalR 2.0 and upcoming 2.x releases
 - Client method callback leak fix
 - Client calling stop from callback deadlock fix
 - Service Bus scale-out stability fixes
+    - Use the latest WindowsAzure.ServiceBus package
+    - Set ServiceBusScaleoutConfiguration.TopicCount to >1 when calling UseServiceBus()
+    - Use nightly builds of SignalR until the 2.0.x is released
+    - Don't send messages >256 KB in size as this can kill the Service Bus connection
 - Other stuff that's less interesting but still important https://github.com/SignalR/SignalR/issues?labels=&milestone=33&page=1&state=open
 
 ## 2.1+

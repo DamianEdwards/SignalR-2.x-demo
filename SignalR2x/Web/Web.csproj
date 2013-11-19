@@ -144,6 +144,7 @@
     <Content Include="JavaScriptCustomJsonParsing\index.cshtml" />
     <Content Include="BackCompatClients\index.cshtml" />
     <Content Include="HubProgress\index.cshtml" />
+    <Content Include="ClientCallbackCleanup\index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackCompatClients\ShinyNewHub.cs" />
+    <Compile Include="ClientCallbackCleanup\NeverEndingHub.cs" />
     <Compile Include="CORS\Startup.cs" />
     <Compile Include="HubExceptions\HubExceptions.cs" />
     <Compile Include="HubProgress\ProgressHub.cs" />
