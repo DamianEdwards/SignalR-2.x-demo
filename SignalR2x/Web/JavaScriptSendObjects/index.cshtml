@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "JavaScript Send Objects";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    The JavaScript client now allows you to send objects directly over connections. They will be implicitly
+    serialized to JSON on your behalf.
+</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info" disabled="disabled">Send Object</button>
+        <span class="text-info"></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script>
+        $(function () {
+            var con = $.connection("connection");
+
+            con.received(function (msg) {
+                $("#actions .text-info").text("Message from server: " + msg);
+            });
+
+            con.start().done(function () {
+                $("#actions button")
+                    .click(function () {
+                        con.send({ data: "Message from client" });
+                    })
+                    .prop("disabled", false);
+            });
+        });
+    </script>
+}

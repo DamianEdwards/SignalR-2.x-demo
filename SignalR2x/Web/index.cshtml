@@ -11,6 +11,20 @@
 
 <div class="row">
     <div class="col-md-4">
+        <h2>.NET 4.5 Requirement</h2>
+        <p>SignalR 2.0.0 removed support for .NET 4.0 on the server. The minimum required .NET version is now .NET 4.5.</p>
+    </div>
+    <div class="col-md-4">
+        <h2>&gt;50 Bug Fixes</h2>
+        <p>SignalR 2.0.0 fixed more than 50 bugs in the server and client libraries, improving stability, performance, and improving usability.</p>
+        <p><a class="btn btn-default" href="https://github.com/signalr/signalr/releases/">See the full release notes &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>OWIN Startup</h2>
+        <p>SignalR 2.0.0 removed all ties to System.Web and took a direct dependency on <a href="http://owin.org">OWIN</a>. This changed how applications setup SignalR during app start.</p>
+        <p><a class="btn btn-default" href="http://www.asp.net/signalr/overview/signalr-20/getting-started-with-signalr-20/upgrading-signalr-1x-projects-to-20">Learn more about upgrading &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
         <h2>Hub Exceptions</h2>
         <p>
             The new exception type <code>HubException</code> can be thrown inside your hub method to
@@ -28,8 +42,11 @@
         <p><a class="btn btn-default" href="CORS/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>JavaScript Send Objects</h2>
+        <p>
+            The JavaScript client now allows you to send objects directly over connections. They will be implicitly
+            serialized to JSON on your behalf.
+        </p>
+        <p><a class="btn btn-default" href="JavaScriptSendObjects/">Learn more &raquo;</a></p>
     </div>
 </div>

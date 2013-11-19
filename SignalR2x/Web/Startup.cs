@@ -18,6 +18,8 @@ namespace Web
 
             // CORS configuration
             app.MapSignalRWithCors();
+
+            app.MapSignalR<JavaScriptSendObjects.Connection>("/JavaScriptSendObjects/connection");
         }
     }
 }
