@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Self Host";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    Self-hosting SignalR is now fully supported with 2.x. Applications can use the Microsoft.AspNet.SignalR.SelfHost
+    package to bring everything they need in to a console application to self-host they're SignalR functionality
+    using the 'Katana' project servers and middleware.
+</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info" disabled="disabled">Connect &amp; Send Message</button>
+        <span class="text-success"></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script src="http://localhost:61201/signalr/js"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.selfHostedHub;
+            
+            $.connection.hub.url = "http://localhost:61201/signalr";
+
+            $("#actions button")
+                .click(function () {
+                    $.connection.hub.start().done(function () {
+                        var $el = $(this);
+
+                        hub.server.helloWorld().done(function (result) {
+                            $("#actions span").text(result);
+                        });
+                    });
+                })
+                .prop("disabled", false);
+            });
+    </script>
+}

@@ -159,6 +159,7 @@
     <Content Include="_SiteLayout.cshtml" />
     <Content Include="SendToUser\index.cshtml" />
     <Content Include="SendPreEncodedJson\index.cshtml" />
+    <Content Include="SelfHost\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackCompatClients\ShinyNewHub.cs" />
