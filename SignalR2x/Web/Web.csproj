@@ -157,6 +157,7 @@
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="_SiteLayout.cshtml" />
+    <Content Include="SendToUser\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackCompatClients\ShinyNewHub.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="JavaScriptErrorHandling\Connection.cs" />
     <Compile Include="JavaScriptSendObjects\Connection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendToUser\UserHub.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <PropertyGroup>

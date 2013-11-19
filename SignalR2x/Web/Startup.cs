@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.StaticFiles;
 using Microsoft.Owin.StaticFiles.Filters;
@@ -13,12 +14,22 @@ namespace Web
     {
         public void Configuration(IAppBuilder app)
         {
+            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new QueryStringUserIdProvider());
+
             app.MapSignalR<JavaScriptSendObjects.Connection>("/JavaScriptSendObjects/connection");
             app.MapSignalR<JavaScriptErrorHandling.Connection>("/JavaScriptErrorHandling/connection");
             app.MapSignalR<JavaScriptCustomJsonParsing.Connection>("/JavaScriptCustomJsonParsing/connection");
-
+            
             app.MapSignalR();
             //app.MapSignalRWithCors();
+        }
+
+        public class QueryStringUserIdProvider : IUserIdProvider
+        {
+            public string GetUserId(IRequest request)
+            {
+                return request.QueryString["user"];
+            }
         }
     }
 }

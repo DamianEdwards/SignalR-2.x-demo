@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Send to User";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    Messages can now be sent to a specific user by using their username. This removes the need to
+    track connection-to-user mapping manually for the purposes of sending messages. The method for
+    getting the username for a connection is itself pluggable.
+</p>
+
+<div id="actions">
+    <p>
+        <label for="username">User name:</label>
+        <input id="username" type="text" />
+    </p>
+    <p>
+        <button class="btn btn-info" disabled="disabled">Connect &amp; Send Message</button>
+        <span class="text-success"></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script src="~/signalr/js"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.userHub;
+            
+            hub.client.newMessage = function (msg) {
+                $("#actions span").text(msg);
+            };
+
+            $("#actions button")
+                .click(function () {
+                    $.connection.hub.qs = {
+                        user : $("#username").val()
+                    };
+                
+                    $.connection.hub.start().done(function () {
+                        var $el = $(this);
+
+                        hub.server.send($("#username").val(), "Message sent from client!");
+                    });
+                })
+                .prop("disabled", false);
+            });
+    </script>
+}
