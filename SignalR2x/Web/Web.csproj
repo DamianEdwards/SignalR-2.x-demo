@@ -15,7 +15,7 @@
     <AssemblyName>Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -138,6 +138,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="HubExceptions\index.cshtml" />
     <Content Include="index.cshtml" />
+    <Content Include="CORS\index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -152,6 +153,7 @@
     <Content Include="_SiteLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CORS\Startup.cs" />
     <Compile Include="HubExceptions\HubExceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

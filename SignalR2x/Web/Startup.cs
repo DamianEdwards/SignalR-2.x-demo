@@ -9,11 +9,14 @@ using Owin;
 
 namespace Web
 {
-    public class Startup
+    public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
+            // Default configuration 
             app.MapSignalR();
+
+            //CorsConfiguration(app);
         }
     }
 }

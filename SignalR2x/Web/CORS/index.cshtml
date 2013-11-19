@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "CORS";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    TODO
+</p>
+
+<div id="actions">
+    <div>
+        <button id="connect" class="btn btn-info">Connect to HTTP</button>
+        <span></span>
+    </div>
+    <div>
+        <button id="connect" data-url="https://localhost:44300/signalr" class="btn btn-info">Connect to HTTPS</button>
+        <span></span>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script src="~/signalr/js"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.hubExceptions;
+
+            $("#actions button").each(function (i, e) {
+                $(e).click(function () {
+                    var $el = $(this),
+                        $msg = $el.next(),
+                        url = $el.attr("data-url");
+
+                    if (url) {
+                        $.connection.hub.url = url;
+                    }
+
+                    $.connection.hub.start()
+                        .done(function () {
+                            $.connection.hub.stop();
+                            $msg.text("Connected successfully!")
+                                .addClass("text-success");
+                        })
+                        .fail(function (error) {
+                            $.connection.hub.stop();
+                            $msg.text("Connect failed: " + error)
+                                .addClass("text-danger");
+                        });
+                });
+            });
+
+        });
+    </script>
+}

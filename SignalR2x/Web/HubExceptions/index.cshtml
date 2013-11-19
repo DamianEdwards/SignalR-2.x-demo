@@ -31,21 +31,20 @@
             $.connection.hub.start().done(function () {
 
                 $("#actions button").each(function (i, e) {
-                    $(e)
-                        .click(function () {
-                            var $el = $(this),
-                                method = $el.attr("data-method");
+                    $(e).click(function () {
+                        var $el = $(this),
+                            method = $el.attr("data-method");
 
-                            hub.invoke(method)
-                                .fail(function (error) {
-                                    var msg = error;
+                        hub.invoke(method)
+                            .fail(function (error) {
+                                var msg = error;
 
-                                    if (error.source === "HubException") {
-                                        msg = msg + error.data;
-                                    }
+                                if (error.source === "HubException") {
+                                    msg = msg + error.data;
+                                }
 
-                                    $el.next().text(msg);
-                                });
+                                $el.next().text(msg);
+                            });
                         })
                         .prop("disabled", false);
                 });
