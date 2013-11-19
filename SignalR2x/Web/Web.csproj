@@ -141,6 +141,7 @@
     <Content Include="CORS\index.cshtml" />
     <Content Include="JavaScriptSendObjects\index.cshtml" />
     <Content Include="JavaScriptErrorHandling\index.cshtml" />
+    <Content Include="JavaScriptCustomJsonParsing\index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <Compile Include="CORS\Startup.cs" />
     <Compile Include="HubExceptions\HubExceptions.cs" />
+    <Compile Include="JavaScriptCustomJsonParsing\Connection.cs" />
     <Compile Include="JavaScriptErrorHandling\Connection.cs" />
     <Compile Include="JavaScriptSendObjects\Connection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

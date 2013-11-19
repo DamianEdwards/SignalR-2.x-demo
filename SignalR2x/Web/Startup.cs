@@ -15,6 +15,7 @@ namespace Web
         {
             app.MapSignalR<JavaScriptSendObjects.Connection>("/JavaScriptSendObjects/connection");
             app.MapSignalR<JavaScriptErrorHandling.Connection>("/JavaScriptErrorHandling/connection");
+            app.MapSignalR<JavaScriptCustomJsonParsing.Connection>("/JavaScriptCustomJsonParsing/connection");
 
             app.MapSignalR();
             //app.MapSignalRWithCors();

@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "JavaScript Custom JSON Parsing";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    The JavaScript client now supports configuring a custom JSON object for parsing and stringifying
+    all objects send over the connection. Be default the connection uses <code>window.JSON</code>.
+</p>
+
+<p class="text-info">Open the browser console to see messages from the custom JSON parser.</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info" disabled="disabled">Send Object</button>
+        <span class="text-info"></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script>
+        $(function () {
+            var con = $.connection("connection");
+
+            con.json = {
+                parse: function (s) {
+                    console.log("Custom JSON parser called to parse string '" + s + "'");
+                    return JSON.parse(s);
+                },
+                stringify: function (o) {
+                    var result = JSON.stringify(o);
+                    console.log("Custom JSON parser stringified object to '" + result + "'");
+                    return result;
+                }
+            };
+
+            con.received(function (msg) {
+                $("#actions .text-info").text("Message from server: " + msg);
+            });
+
+            con.start().done(function () {
+                $("#actions button")
+                    .click(function () {
+                        con.send({ data: "Message from client" });
+                    })
+                    .prop("disabled", false);
+            });
+        });
+    </script>
+}
