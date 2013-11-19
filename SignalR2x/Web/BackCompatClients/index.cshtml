@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Old Client Support";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    SignalR 2.x servers can continue to work with clients using SignalR 1.x client libraries. This means
+    you can continue to support client applications that haven't yet been updated to the new client
+    libraries, which is particularly helpful in cases where the client application is deployed to an app store.
+</p>
+
+<p>
+    This page is using the SignalR 1.x JS client library to connect to the server which is using SignalR 2.x
+</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info" disabled="disabled">Call Method on 2.x Hub</button>
+        <span class="text-success"></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-1.1.3.js"></script>
+    <script src="~/signalr/js"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.shinyNewHub;
+
+            $.connection.hub.start().done(function () {
+                $("#actions button")
+                    .click(function () {
+                        var $el = $(this);
+
+                        hub.server.newMethod().done(function(result) {
+                            $el.next().text(result);
+                        });
+                    })
+                    .prop("disabled", false);
+                });
+        });
+    </script>
+}

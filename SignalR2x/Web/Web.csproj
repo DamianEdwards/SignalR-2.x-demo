@@ -142,11 +142,14 @@
     <Content Include="JavaScriptSendObjects\index.cshtml" />
     <Content Include="JavaScriptErrorHandling\index.cshtml" />
     <Content Include="JavaScriptCustomJsonParsing\index.cshtml" />
+    <Content Include="BackCompatClients\index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery.signalR-1.1.3.js" />
+    <Content Include="Scripts\jquery.signalR-1.1.3.min.js" />
     <Content Include="Scripts\jquery.signalR-2.1.0-pre-131118-b281.js" />
     <Content Include="Scripts\jquery.signalR-2.1.0-pre-131118-b281.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -156,6 +159,7 @@
     <Content Include="_SiteLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackCompatClients\ShinyNewHub.cs" />
     <Compile Include="CORS\Startup.cs" />
     <Compile Include="HubExceptions\HubExceptions.cs" />
     <Compile Include="JavaScriptCustomJsonParsing\Connection.cs" />
