@@ -13,13 +13,11 @@ namespace Web
     {
         public void Configuration(IAppBuilder app)
         {
-            // Default configuration 
-            //app.MapSignalR();
-
-            // CORS configuration
-            app.MapSignalRWithCors();
-
             app.MapSignalR<JavaScriptSendObjects.Connection>("/JavaScriptSendObjects/connection");
+            app.MapSignalR<JavaScriptErrorHandling.Connection>("/JavaScriptErrorHandling/connection");
+
+            app.MapSignalR();
+            //app.MapSignalRWithCors();
         }
     }
 }

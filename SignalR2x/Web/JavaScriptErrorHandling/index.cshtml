@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "JavaScript Error Handling";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    All JavaScript error handling callbacks now flow JavaScript error objects instead of raw strings.
+    This allows us to flow richer information to your error handlers. You can get the inner exception
+    from the source property of the error.
+</p>
+
+<p class="text-info">Click the 'Start Connection' button then stop the web server to see the error message.</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info">Start Connection</button>
+        <span class="text-danger"></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script>
+        $(function () {
+            var con = $.connection("connection"),
+                $btn = $("#actions button");
+
+            con.error(function (error) {
+                logError(error);
+            });
+
+            con.disconnected(function () {
+                $btn.text("Start Connection");
+            });
+
+            $btn.click(function () {
+                if (con.state === $.signalR.connectionState.disconnected) {
+                    con.start()
+                        .done(function () {
+                            $btn.text("Stop Connection");
+                        })
+                        .fail(function (error) {
+                            logError(error);
+                        });
+                } else {
+                    con.stop();
+                }
+            });
+
+            function logError(error) {
+                var msg = "error.message: " + error.message + ", error.source: " + error.source;
+                $("#actions span").text(msg);
+                console.log(msg);
+            }
+        });
+    </script>
+}
