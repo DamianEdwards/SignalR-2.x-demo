@@ -14,9 +14,10 @@ namespace Web
         public void Configuration(IAppBuilder app)
         {
             // Default configuration 
-            app.MapSignalR();
+            //app.MapSignalR();
 
-            //CorsConfiguration(app);
+            // CORS configuration
+            app.MapSignalRWithCors();
         }
     }
 }

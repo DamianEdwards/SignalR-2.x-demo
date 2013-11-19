@@ -1,52 +1,63 @@
 ﻿@{
     Layout = "~/_SiteLayout.cshtml";
-    Page.Title = "CORS";
+    Page.Title = "CORS Support";
 }
 
 <h2>@Page.Title</h2>
 
 <p>
-    TODO
+    In SignalR 1.x cross domain requests were controlled by a single <code>EnableCrossDomain</code> flag.
+    This flag controlled both JSONP and CORS requests. For greater fleixibility, SignalR 2.x removes all
+    CORS support from SignalR and made new OWIN middleware available to support these scenarios. To add
+    support for CORS requests, install Microsoft.Owin.Cors and call UseCors before your SignalR middleware.
 </p>
 
 <div id="actions">
-    <div>
+    <p>
         <button id="connect" class="btn btn-info">Connect to HTTP</button>
         <span></span>
-    </div>
-    <div>
+    </p>
+    <p>
         <button id="connect" data-url="https://localhost:44300/signalr" class="btn btn-info">Connect to HTTPS</button>
         <span></span>
-    </div>
+    </p>
 </div>
 
 @section Scripts {
     <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
-    <script src="~/signalr/js"></script>
     <script>
         $(function () {
-            var hub = $.connection.hubExceptions;
-
             $("#actions button").each(function (i, e) {
                 $(e).click(function () {
                     var $el = $(this),
                         $msg = $el.next(),
-                        url = $el.attr("data-url");
+                        url = $el.attr("data-url"),
+                        connection, hub;
 
                     if (url) {
-                        $.connection.hub.url = url;
+                        connection = $.hubConnection(url);
+                    } else {
+                        connection = $.hubConnection();
                     }
 
-                    $.connection.hub.start()
+                    connection.start()
                         .done(function () {
-                            $.connection.hub.stop();
+                            connection.stop();
                             $msg.text("Connected successfully!")
-                                .addClass("text-success");
+                                .addClass("text-success")
+                                .show();
+                            setTimeout(function () {
+                                $msg.hide().removeClass("text-success");
+                            }, 3000);
                         })
                         .fail(function (error) {
-                            $.connection.hub.stop();
-                            $msg.text("Connect failed: " + error)
-                                .addClass("text-danger");
+                            connection.stop();
+                            $msg.text("Connect failed: " + error + " (Check the browser console for more details)")
+                                .addClass("text-danger")
+                                .show();
+                            setTimeout(function () {
+                                $msg.hide().removeClass("text-danger");
+                            }, 3000);
                         });
                 });
             });
