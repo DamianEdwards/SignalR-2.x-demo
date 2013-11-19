@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Strongly Typed Hubs";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    Hubs can specify a strongly typed contract to represent the client methods that can be
+    invoked from the hub on the server-side. Client method invocations can then be made
+    without the use of dynamic or strings for method names.
+</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info" disabled="disabled">Send Message</button>
+        <span class="text-success"></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script src="~/signalr/js"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.strongHub;
+            
+            hub.client.newMessage = function (msg) {
+                $("#actions span").text(msg);
+            };
+
+            $.connection.hub.start().done(function () {
+                $("#actions button")
+                    .click(function () {
+                        hub.server.send("Message sent from client!");
+                    })
+                    .prop("disabled", false);;
+            });
+                
+        });
+    </script>
+}
