@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Hub Exceptions";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    The new exception type <code>HubException</code> can be thrown inside your hub method to
+    provide meaningful error details to your clients, including extra custom data.
+</p>
+
+<div id="actions">
+    <div>
+        <button data-method="ThrowsException" class="btn btn-info" disabled="disabled">Fails</button>
+        <span class="text-danger"></span>
+    </div>
+    <div>
+        <button data-method="ThrowsHubException" class="btn btn-info" disabled="disabled">Fails with data</button>
+        <span class="text-danger"></span>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script src="~/signalr/js"></script>
+    <script>
+        $(function () {
+            var hub = $.connection.hubExceptions;
+
+            $.connection.hub.start().done(function () {
+
+                $("#actions button").each(function (i, e) {
+                    $(e)
+                        .click(function () {
+                            var $el = $(this),
+                                method = $el.attr("data-method");
+
+                            hub.invoke(method)
+                                .fail(function (error) {
+                                    var msg = error;
+
+                                    if (error.source === "HubException") {
+                                        msg = msg + error.data;
+                                    }
+
+                                    $el.next().text(msg);
+                                });
+                        })
+                        .prop("disabled", false);
+                });
+
+            });
+        });
+    </script>
+}
