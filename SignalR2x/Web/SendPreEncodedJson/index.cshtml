@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Send Pre-encoded JSON";
+}
+
+<h2>@Page.Title</h2>
+
+<p>
+    Messages of pre-encoded JSON can now be sent directly over connections. SignalR will not try
+    to re-encode raw JSON byte messages. This is useful in scenarios where you already have JSON
+    ready to send that was serialized by some other process previously.
+</p>
+
+<div id="actions">
+    <p>
+        <button class="btn btn-info" disabled="disabled">Get Data</button>
+        <span class="text-info"></span>
+    </p>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.1.0-pre-131118-b281.js"></script>
+    <script>
+        $(function () {
+            var con = $.connection("connection");
+
+            con.received(function (msg) {
+                $("#actions .text-info").text("description: " + msg.description + ", aNumber: " + msg.aNumber + ", created: " + msg.created);
+            });
+
+            con.start().done(function () {
+                $("#actions button")
+                    .click(function () {
+                        con.send({});
+                    })
+                    .prop("disabled", false);
+            });
+        });
+    </script>
+}
