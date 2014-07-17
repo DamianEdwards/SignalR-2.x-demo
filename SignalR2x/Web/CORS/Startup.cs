@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Cors;
 using Microsoft.AspNet.SignalR;
-using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
 
